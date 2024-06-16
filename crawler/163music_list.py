@@ -34,5 +34,5 @@ for song_name, song_id in zip(song_names, song_ids):
 
         m4a = requests.get(song_url).content
         # 4. 保存数据
-        with open('./music/%s.mp3' % song_name, "wb") as file:
+        with open('~/myplace/music/%s.mp3' % song_name, "wb") as file:
             file.write(m4a)
