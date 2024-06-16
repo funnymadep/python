@@ -8,6 +8,8 @@
 │   └── scrape_douban.py            豆瓣top250名单
 ├── push.sh                         一键上传
 ├── README.md                       README
+├── minesweeper                     扫雷
+│   └── minesweeper.py
 └── snake                           贪吃蛇
     └── snake.py
 ```
