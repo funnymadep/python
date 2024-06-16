@@ -1,14 +1,15 @@
+# coding=utf-8
 import pygame
 import time
 import random
 
-# 初始化Pygame
 pygame.init()
 
 # 定义屏幕大小
-screen_width = 800
-screen_height = 600
+screen_width = 400
+screen_height = 400
 screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption('snake')
 
 # 设置颜色
 black = (0, 0, 0)
@@ -22,11 +23,11 @@ snake_speed = 15
 clock = pygame.time.Clock()
 
 # 定义字体
-font_style = pygame.font.SysFont(None, 50)
+font_style = pygame.font.SysFont(None, 25)
 
-def message(msg, color):
+def message(msg, color, y_displace=0):
     mesg = font_style.render(msg, True, color)
-    screen.blit(mesg, [screen_width / 6, screen_height / 3])
+    screen.blit(mesg, [screen_width / 6, screen_height / 3 + y_displace])
 
 def gameLoop():
     game_over = False
@@ -48,7 +49,7 @@ def gameLoop():
 
         while game_close == True:
             screen.fill(black)
-            message("You Lost! Press Q-Quit or C-Play Again", red)
+            message("You Lost! Press Q-Quit or C-Play Again", red, -50)
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -108,5 +109,48 @@ def gameLoop():
     pygame.quit()
     quit()
 
-gameLoop()
+def show_help():
+    help_open = True
+    while help_open:
+        screen.fill(black)
+        message("help:", white, -100)
+        message("press ↑↓←→ to choose direction", white, -50)
+        message("press q to quit game", white, 0)
+        message("press c restart game", white, 50)
+        message("press b return menu", white, 100)
+        pygame.display.update()
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_b:
+                    help_open = False
 
+def main_menu():
+    menu_open = True
+    while menu_open:
+        screen.fill(black)
+        message("snake", white, -100)
+        message("press s start", white, -50)
+        message("press h help", white, 0)
+        message("press q quit", white, 50)
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_s:
+                    gameLoop()
+                if event.key == pygame.K_h:
+                    show_help()
+                if event.key == pygame.K_q:
+                    menu_open = False
+
+    pygame.quit()
+    quit()
+
+main_menu()
